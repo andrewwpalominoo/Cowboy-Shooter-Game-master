@@ -1,5 +1,5 @@
 # Cowboy-Shooter-Game
-A 2D 8-bit style shooting game created with Java Swing API and threads.
+Un joc de trets en 2D de 8 bits creat amb l'API i fils de treball de Java Swing.
 
 # Screenshots
 ![image](Cowboy-Shooter-Game-Master/Screenshot/Screenshot.PNG)
