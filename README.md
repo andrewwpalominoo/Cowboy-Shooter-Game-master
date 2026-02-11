@@ -2,7 +2,7 @@
 A 2D 8-bit style shooting game created with Java Swing API and threads.
 
 # Screenshots
-![image](COWBOY-SHOOTER-GAME-MASTER/Screenshot/Screenshot.PNG)
+![image](Cowboy-Shooter-Game-Master/Screenshot/Screenshot.PNG)
 # Game Instructions 
 * Fes clic per disparar una bala.
 * Cada cop dóna **10** punts i colpejar la pilota al centre suma **20** punts.
