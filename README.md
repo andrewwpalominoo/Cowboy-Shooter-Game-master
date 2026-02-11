@@ -2,7 +2,7 @@
 Un joc de trets en 2D de 8 bits creat amb l'API i fils de treball de Java Swing.
 
 # Screenshots
-![image](Cowboy-Shooter-Game-Master/Screenshot/Screenshot.PNG)
+![image](Screenshot/Screenshot.PNG)
 # Game Instructions 
 * Fes clic per disparar una bala.
 * Cada cop dóna **10** punts i colpejar la pilota al centre suma **20** punts.
