@@ -1,13 +1,14 @@
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.BufferedInputStream;
 import java.util.Random;
-
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
+import javax.swing.*;
+
+
 
 class Key_actions implements KeyListener {
 	public void keyTyped(KeyEvent k) {
@@ -27,6 +28,37 @@ class Key_actions implements KeyListener {
 	}
 
 	public void keyPressed(KeyEvent kx) {
+		if (kx.getKeyCode() == KeyEvent.VK_SPACE) {
+			if (BouncingBall.bullet_fire == false && !BouncingBall.won) {
+				if (BouncingBall.startup_screen == true) {
+					BouncingBall.startup_screen = false;
+				}
+				BouncingBall.Bullet_count--;
+				if (BouncingBall.Bullet_count < 0) {
+					BouncingBall.Bullet_count = 0;
+					BouncingBall.game_over.setVisible(true);
+				} else {
+					BouncingBall.bullet_fire = true;
+					BouncingBall.c_code = "";
+					BouncingBall.Bullet_remaining.setText("Bales: " + BouncingBall.Bullet_count);
+					BouncingBall.show_popup = false;
+					if (BouncingBall.gamemusic && BouncingBall.Bullet_count >= 0) {
+						try {
+							BufferedInputStream audioFile = new BufferedInputStream(
+									BouncingBall.bBall.getResourceAsStream("/res/gunshot.wav"));
+							AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(audioFile);
+							Clip clip = AudioSystem.getClip();
+							clip.open(audioInputStream);
+							clip.start();
+						} catch (Exception ex) {
+							ex.printStackTrace();
+						}
+					}
+				}
+			} else if (BouncingBall.won) {
+				BouncingBall.winner.setVisible(true);
+			}
+		}
 	}
 
 	public void keyReleased(KeyEvent key) {
