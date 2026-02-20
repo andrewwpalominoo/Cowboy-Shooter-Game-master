@@ -8,8 +8,6 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.swing.*;
 
-
-
 class Key_actions implements KeyListener {
 	public void keyTyped(KeyEvent k) {
 		BouncingBall.c_code += k.getKeyChar();
@@ -199,7 +197,7 @@ class Button_Handler implements ActionListener {
 	}
 }
 
-class BouncingBall extends Canvas {
+public class BouncingBall extends Canvas {
 	private static int x = 0, a = 0;
 	public static boolean up = true;
 	public static boolean move_ball = true;
@@ -245,6 +243,82 @@ class BouncingBall extends Canvas {
 	public static String c_code = "";
 
 	public static void main(String[] args) {
+
+		f = new JFrame("El mico disparador");
+		f.setVisible(false);
+
+		// crea la ventana del juego
+		JFrame frame = new JFrame("Pantalla d'inici");
+		frame.setSize(600, 450); // tamano personalizado para la pantalla de inicio
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // cierra programa al cerrar ventana
+		frame.setResizable(false); // no permite que el usuario modifique la ventana
+		frame.setLocationRelativeTo(null); // centra la ventana en la pantalla
+
+		JPanel panel = new JPanel();
+		panel.setLayout(new GridBagLayout());
+		panel.setBackground(new Color(29, 144, 49));
+
+		// gridbagconstraints para estructurar las cosas
+		GridBagConstraints gbc = new GridBagConstraints();
+		gbc.insets = new Insets(10, 10, 10, 10); // espaciado entre componentes
+		gbc.fill = GridBagConstraints.HORIZONTAL;
+
+		// titulo del juego
+		JLabel titulo = new JLabel("El mico disparador", JLabel.CENTER);
+		titulo.setFont(new Font("Arial", Font.BOLD, 40));
+		titulo.setForeground(Color.WHITE);
+
+		JButton reglas = new JButton("Com jugar");
+		reglas.setFont(new Font("Arial", Font.BOLD, 20));
+		reglas.setBackground(Color.WHITE);
+		reglas.addActionListener(l -> {
+			JOptionPane.showMessageDialog(frame, "Fes clic per disparar una bala.\r\n" + //
+					"Cada cop dóna 10 punts i colpejar la pilota al centre suma 20 punts.\r\n" + //
+					"Recompensa de Bala extra per 2 cops consecutius.\r\n" + //
+					"En arribar a la puntuació objectiu, el nivell canvia.");
+		});
+
+		// boton de comenzar juego
+		JButton begin = new JButton("Començar");
+		begin.setFont(new Font("Arial", Font.BOLD, 20));
+		begin.setBackground(Color.WHITE);
+
+		// al presionar el boton de comenzar
+		begin.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+
+				// cierra la ventana de inicio
+				frame.dispose();
+
+				// abre la ventana del juego
+				f.setVisible(true);
+				GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+				gd.setFullScreenWindow(f);
+			}
+		});
+
+		// titulo del juego
+		gbc.gridx = 0; // columna 0
+		gbc.gridy = 0; // fila 0
+		gbc.gridwidth = 2; // ocupa 2 columnas
+		panel.add(titulo, gbc);
+
+		// boton de comenzar
+		gbc.gridx = 0; // columna 0
+		gbc.gridy = 1; // fila 5
+		gbc.gridwidth = 2; // ocupa 2 columnas
+		panel.add(begin, gbc);
+
+		// boton de instrucciones
+		gbc.gridx = 0; // columna 0
+		gbc.gridy = 2; // fila 6
+		gbc.gridwidth = 2; // ocupa 2 columnas
+		panel.add(reglas, gbc);
+
+		frame.add(panel);
+		frame.setVisible(true);
+
 		BouncingBall bouncingBall = new BouncingBall();
 		bBall = bouncingBall.getClass();
 		if (bgmusic) {
@@ -259,8 +333,6 @@ class BouncingBall extends Canvas {
 				ex.printStackTrace();
 			}
 		}
-
-		f = new JFrame("El mico disparador");
 
 		// menu bar
 		JMenuBar jmb = new JMenuBar();
@@ -371,18 +443,16 @@ class BouncingBall extends Canvas {
 		score.setFont(new Font("Fugaz one", 0, 17));
 		Next_target.setFont(new Font("Fugaz one", 0, 17));
 		Level.setFont(new Font("Fugaz one", 0, 17));
-
-		f.setSize(area_x, area_y);
+		
 		game_over.setResizable(false);
 		winner.setResizable(false);
 		f.setResizable(false);
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		f.setLocationRelativeTo(null);
-		f.getContentPane().setBackground(new Color(255, 255, 255));
-		f.setVisible(true);
+		f.getContentPane().setBackground(new Color(34, 177, 76));
 	}
 
-	private BouncingBall() {
+	public BouncingBall() {
 		Thread t = new Thread(() -> {
 			while (true) {
 				if (move_ball) {
@@ -673,10 +743,9 @@ class BouncingBall extends Canvas {
 
 		// Bullet
 		if (bullet_fire) {
-			bulletx = a + 235;
-			bullety = 312;
+			bulletx = a + 230;
+			bullety = 278;
 			g.drawImage(bullet_img, bulletx, bullety, 30, 5, this);
-
 		}
 		g.setColor(Color.WHITE);
 		g.fillRoundRect(20, 10, 750, 60, 20, 30);
