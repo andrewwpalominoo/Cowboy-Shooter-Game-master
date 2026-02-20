@@ -243,7 +243,7 @@ public class BouncingBall extends Canvas {
 	public static String c_code = "";
 
 	public static void main(String[] args) {
-
+		
 		f = new JFrame("El mico disparador");
 		f.setVisible(false);
 
@@ -253,10 +253,11 @@ public class BouncingBall extends Canvas {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // cierra programa al cerrar ventana
 		frame.setResizable(false); // no permite que el usuario modifique la ventana
 		frame.setLocationRelativeTo(null); // centra la ventana en la pantalla
+		
 
 		JPanel panel = new JPanel();
 		panel.setLayout(new GridBagLayout());
-		panel.setBackground(new Color(29, 144, 49));
+		panel.setBackground(new Color(29,144,49));
 
 		// gridbagconstraints para estructurar las cosas
 		GridBagConstraints gbc = new GridBagConstraints();
@@ -293,28 +294,26 @@ public class BouncingBall extends Canvas {
 
 				// abre la ventana del juego
 				f.setVisible(true);
-				GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
-				gd.setFullScreenWindow(f);
 			}
 		});
 
 		// titulo del juego
-		gbc.gridx = 0; // columna 0
-		gbc.gridy = 0; // fila 0
-		gbc.gridwidth = 2; // ocupa 2 columnas
-		panel.add(titulo, gbc);
+        gbc.gridx = 0; // columna 0
+        gbc.gridy = 0; // fila 0
+        gbc.gridwidth = 2; // ocupa 2 columnas
+        panel.add(titulo, gbc);
 
-		// boton de comenzar
-		gbc.gridx = 0; // columna 0
-		gbc.gridy = 1; // fila 5
-		gbc.gridwidth = 2; // ocupa 2 columnas
-		panel.add(begin, gbc);
+        // boton de comenzar
+        gbc.gridx = 0; // columna 0
+        gbc.gridy = 1; // fila 5
+        gbc.gridwidth = 2; // ocupa 2 columnas
+        panel.add(begin, gbc);
 
-		// boton de instrucciones
-		gbc.gridx = 0; // columna 0
-		gbc.gridy = 2; // fila 6
-		gbc.gridwidth = 2; // ocupa 2 columnas
-		panel.add(reglas, gbc);
+        // boton de instrucciones
+        gbc.gridx = 0; // columna 0
+        gbc.gridy = 2; // fila 6
+        gbc.gridwidth = 2; // ocupa 2 columnas
+        panel.add(reglas, gbc);
 
 		frame.add(panel);
 		frame.setVisible(true);
@@ -443,7 +442,9 @@ public class BouncingBall extends Canvas {
 		score.setFont(new Font("Fugaz one", 0, 17));
 		Next_target.setFont(new Font("Fugaz one", 0, 17));
 		Level.setFont(new Font("Fugaz one", 0, 17));
+
 		
+		f.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		game_over.setResizable(false);
 		winner.setResizable(false);
 		f.setResizable(false);
