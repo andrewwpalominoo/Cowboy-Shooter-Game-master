@@ -125,7 +125,7 @@ class Button_Handler implements ActionListener {
             jf2.setVisible(true);
         }
 
-        if (e.getActionCommand().equals("Comenar de nou")) {
+        if (e.getActionCommand().equals("Començar de nou")) {
             BouncingBall.Bullet_count = 6;
             BouncingBall.point = 0;
             BouncingBall.ball_speed = 8;
@@ -271,7 +271,7 @@ public class BouncingBall extends Canvas {
             "Recompensa d'1 bala extra per 2 cops consecutius.\n" +
             "En arribar a la puntuacio objectiu, el nivell canvia.\n\n"));
 
-        JButton begin = new JButton("Comenar");
+        JButton begin = new JButton("Començar");
         begin.setFont(new Font("Arial", Font.BOLD, 20));
         begin.setBackground(Color.WHITE);
         begin.addActionListener(ev -> { frame.dispose(); framegame.setVisible(true); });
@@ -319,7 +319,7 @@ public class BouncingBall extends Canvas {
         game_over.add(gOverLbl);
         bottom_buttons1 = new JPanel();
         bottom_buttons1.setBackground(Color.WHITE);
-        restart = new JButton("Comenar de nou");
+        restart = new JButton("Començar de nou");
         exit    = new JButton("Sortir");
         restart.setBackground(Color.WHITE);
         exit.setBackground(Color.WHITE);
@@ -337,7 +337,7 @@ public class BouncingBall extends Canvas {
         winner.getContentPane().setBackground(Color.WHITE);
         winner.add(wLbl);
         bottom_buttons2 = new JPanel();
-        restart2 = new JButton("Comenar de nou");
+        restart2 = new JButton("Començar de nou");
         exit2    = new JButton("Sortir");
         restart2.setBackground(Color.WHITE);
         exit2.setBackground(Color.WHITE);
@@ -607,7 +607,7 @@ public class BouncingBall extends Canvas {
         }
 
         if (startup_screen) {
-            String msg = "Clicka per comenar";
+            String msg = "Clicka per començar";
             int sfSize = Math.max(14, (int)(22 * Math.min(scaleX, scaleY)));
             Font sf = new Font("Fugaz one", Font.PLAIN, sfSize);
             g.setFont(sf);
