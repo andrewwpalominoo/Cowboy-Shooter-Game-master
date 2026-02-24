@@ -49,9 +49,6 @@ class Key_actions implements KeyListener {
     public void keyReleased(KeyEvent key) {}
 }
 
-// =====================================================================
-// CLASE Listener: Gestiona los clics del raton para disparar
-// =====================================================================
 class Listener extends MouseAdapter {
     public void mouseClicked(MouseEvent e) {
         if (!BouncingBall.bullet_fire && !BouncingBall.won) {
@@ -73,9 +70,6 @@ class Listener extends MouseAdapter {
     }
 }
 
-// =====================================================================
-// CLASE Button_Handler: Maneja botones de menus y dialogos
-// =====================================================================
 class Button_Handler implements ActionListener {
 
     public static JCheckBox c1, c2;
@@ -166,18 +160,6 @@ class Button_Handler implements ActionListener {
     }
 }
 
-// =====================================================================
-// CLASE PRINCIPAL BouncingBall
-//
-// SISTEMA DE ESCALADO DINAMICO:
-//   - Todas las posiciones del juego estan definidas en un espacio BASE
-//     de 800x600 pixeles (sufijo _base).
-//   - En cada frame se calculan scaleX = canvasW/800 y scaleY = canvasH/600.
-//   - Antes de dibujar cualquier elemento, su posicion y tamano se
-//     multiplican por los factores de escala.
-//   - El canvas ocupa TODA la ventana (BorderLayout.CENTER), por lo que
-//     los clics y el teclado funcionan en cualquier punto de la pantalla.
-// =====================================================================
 public class BouncingBall extends Canvas {
 
     // Resolucion de diseno base sobre la que estan definidas todas las coordenadas
@@ -258,9 +240,6 @@ public class BouncingBall extends Canvas {
         } catch (Exception ex) { ex.printStackTrace(); }
     }
 
-    // ================================================================
-    // METODO MAIN
-    // ================================================================
     public static void main(String[] args) {
 
         framegame = new JFrame("El mico disparador");
@@ -290,8 +269,7 @@ public class BouncingBall extends Canvas {
             "Fes clic o prem ESPAI per disparar una bala.\n" +
             "Cada cop dona 10 punts i colpejar al centre suma 20 punts.\n" +
             "Recompensa d'1 bala extra per 2 cops consecutius.\n" +
-            "En arribar a la puntuacio objectiu, el nivell canvia.\n\n" +
-            "Codis secrets:\n  INFINITY -> balas infinitas\n  PAINKILLER -> nivel 6"));
+            "En arribar a la puntuacio objectiu, el nivell canvia.\n\n"));
 
         JButton begin = new JButton("Comenar");
         begin.setFont(new Font("Arial", Font.BOLD, 20));
@@ -304,7 +282,6 @@ public class BouncingBall extends Canvas {
         frame.add(panel);
         frame.setVisible(true);
 
-        // --- Inicializacion de recursos ---
         BouncingBall bouncingBall = new BouncingBall();
         bBall = bouncingBall.getClass();
 
@@ -319,7 +296,7 @@ public class BouncingBall extends Canvas {
             } catch (Exception ex) { ex.printStackTrace(); }
         }
 
-        // --- Barra de menu ---
+        // Barra de menu
         JMenuBar jmb = new JMenuBar();
         JMenuItem settings = new JMenuItem("Configuracio");
         jmb.add(settings);
@@ -330,13 +307,11 @@ public class BouncingBall extends Canvas {
         Button_Handler bh = new Button_Handler();
         settings.addActionListener(bh);
 
-        // --- Etiquetas HUD (solo para actualizar texto; se dibujan en el canvas) ---
         score            = new JLabel("Punts: 0");
         Bullet_remaining = new JLabel("Bales: 6");
         Next_target      = new JLabel("Objectiu: 20");
         Level            = new JLabel("Nivell: 1");
 
-        // --- Dialogo "Game Over" ---
         game_over = new JDialog(framegame, "Has perdut!");
         Image gOverImg = Toolkit.getDefaultToolkit().getImage(bBall.getResource("/res/gameover_img.png"));
         JLabel gOverLbl = new JLabel(new ImageIcon(gOverImg.getScaledInstance(150, 150, Image.SCALE_DEFAULT)), SwingConstants.CENTER);
@@ -356,7 +331,6 @@ public class BouncingBall extends Canvas {
         game_over.setSize(300, 230);
         game_over.setResizable(false);
 
-        // --- Dialogo de victoria ---
         winner = new JDialog(framegame, "Has guanyat!");
         Image wImg = Toolkit.getDefaultToolkit().getImage(bBall.getResource("/res/winner_img.jpg"));
         JLabel wLbl = new JLabel(new ImageIcon(wImg.getScaledInstance(300, 350, Image.SCALE_DEFAULT)), SwingConstants.CENTER);
@@ -375,17 +349,11 @@ public class BouncingBall extends Canvas {
         winner.setSize(300, 450);
         winner.setResizable(false);
 
-        // --- Imagenes del juego ---
         gun_img    = Toolkit.getDefaultToolkit().getImage(bBall.getResource("/res/diddy_gun.png"));
         bullet_img = Toolkit.getDefaultToolkit().getImage(bBall.getResource("/res/bullet.png"));
         ball_img   = Toolkit.getDefaultToolkit().getImage(bBall.getResource("/res/ball.png"));
         img        = Toolkit.getDefaultToolkit().getImage(bBall.getResource("/res/fondo_cide.png"));
 
-        // ================================================================
-        // CANVAS: ocupa TODA la ventana gracias a BorderLayout.CENTER.
-        // No tiene tamano fijo; se expande con la ventana en pantalla completa.
-        // Todos los elementos se escalan dinamicamente en animate().
-        // ================================================================
         Canvas c = new BouncingBall();
         c.setFocusable(true);
         c.addKeyListener(new Key_actions());
@@ -401,12 +369,7 @@ public class BouncingBall extends Canvas {
         framegame.getContentPane().setBackground(new Color(34, 177, 76));
     }
 
-    // ================================================================
-    // CONSTRUCTOR: lanza los hilos de animacion y logica
-    // ================================================================
     public BouncingBall() {
-
-        // --- Hilo 1: movimiento vertical de la pelota ---
         Thread t = new Thread(() -> {
             while (true) {
                 if (move_ball) {
@@ -440,17 +403,13 @@ public class BouncingBall extends Canvas {
         });
         t.start();
 
-        // --- Hilo 2: bala, colisiones y logica de nivel ---
         Thread bullet = new Thread(() -> {
             while (bulletf) {
 
-                // Cambio de nivel al superar el objetivo de puntuacion
                 if (point >= target && bullet_fire) {
                     level++;
                     level_changed = true;
-
-                    // Mueve la pelota horizontalmente (en espacio base) al cambiar de nivel
-                    Random rand = new Random();
+					Random rand = new Random();
                     int rv  = rand.nextInt(10) + 40;
                     int dir = rand.nextInt(2) + 1;
                     if (dir == 1) {
@@ -460,12 +419,10 @@ public class BouncingBall extends Canvas {
                     }
                 }
 
-                // Avance de la bala (en espacio base)
                 if (a < 700 && bullet_fire) {
                     a += 5;
                     bulletx_base = a + 230;
 
-                    // Deteccion de colision en espacio BASE (independiente de la escala)
                     int bPoint = bulletx_base + 38; // punta de la bala
                     int bOuter = ballx_base;        // borde izquierdo de la pelota
 
@@ -496,7 +453,7 @@ public class BouncingBall extends Canvas {
                         // Zona central-baja -> 10 puntos
                         } else if (bally_base <= bullety_base && bally_base >= bullety_base - 19) {
                             if (score_update) {
-                                score_update = false; point += 10;
+                                score_update = false; point += 15;
                                 if (hit) consecutive_hit++;
                                 if (Bullet_count > 0) move_ball = false;
                                 hit = true;
@@ -508,7 +465,7 @@ public class BouncingBall extends Canvas {
                         // Zona superior -> 10 puntos
                         } else if (bally_base <= bullety_base - 21 && bally_base >= bullety_base - 35) {
                             if (score_update) {
-                                score_update = false; point += 10;
+                                score_update = false; point += 15;
                                 if (hit) consecutive_hit++;
                                 if (Bullet_count > 0) move_ball = false;
                                 hit = true;
@@ -550,16 +507,14 @@ public class BouncingBall extends Canvas {
                     }
                 }
 
-                // Procesamiento del cambio de nivel
                 if (level_changed) {
                     consecutive_hit = 0;
                     popup_msg  = "Nivell: " + level;
                     show_popup = true;
-                    // Ajusta dificultad segun el nivel alcanzado
                     if      (level == 2) { ball_speed -= 1; Bullet_count = 6; target += 30; }
-                    else if (level == 3) { ball_speed -= 1; Bullet_count = 5; target += 30; }
-                    else if (level == 4) { ball_speed -= 2; Bullet_count = 5; target += 40; }
-                    else if (level == 5) { ball_speed  = 3; Bullet_count = 3; target += 30; }
+                    else if (level == 3) { ball_speed -= 1; Bullet_count = 6; target += 30; }
+                    else if (level == 4) { ball_speed -= 2; Bullet_count = 5; target += 30; }
+                    else if (level == 5) { ball_speed  = 3; Bullet_count = 5; target += 30; }
                     score.setText("Punts: " + point);
                     Level.setText("Nivell: " + level);
                     Next_target.setText("Objectiu: " + target);
@@ -590,28 +545,21 @@ public class BouncingBall extends Canvas {
     public void animate(Graphics g, int W, int H) {
         super.paint(g);
 
-        // Actualiza los factores de escala con el tamano real del canvas
         scaleX = (double) W / BASE_W;
         scaleY = (double) H / BASE_H;
 
-        // --- Fondo a tamano completo de pantalla ---
         g.drawImage(img, 0, 0, W, H, this);
 
-        // --- Canon: escalado y posicionado en el lado izquierdo ---
-        // Diseno base: x=-80, y=141, w=380, h=420
-        // Se escala para que nunca se recorte en ninguna resolucion
         g.drawImage(gun_img,
             (int)(-80  * scaleX), (int)(141 * scaleY),
             (int)(380  * scaleX), (int)(420 * scaleY), this);
 
-        // --- Pelota: calcula posicion escalada desde espacio base ---
         bally_base = 400 - x;   // oscilacion vertical en base
         ballx = (int)(ballx_base * scaleX);
         bally = (int)(bally_base * scaleY);
         g.drawImage(ball_img, ballx, bally,
             (int)(50 * scaleX), (int)(50 * scaleY), this);
 
-        // --- Bala en vuelo: escala posicion y tamano ---
         if (bullet_fire) {
             bulletx_base = a + 230;
             bullety_base = 278;
@@ -621,7 +569,6 @@ public class BouncingBall extends Canvas {
                 (int)(30 * scaleX), Math.max(3, (int)(5 * scaleY)), this);
         }
 
-        // --- HUD: panel blanco que ocupa todo el ancho del canvas ---
         int hm  = (int)(20 * scaleX);           // margen lateral
         int hudH = (int)(60 * scaleY);           // alto del HUD
         int hudY = (int)(10 * scaleY);           // separacion superior
@@ -642,7 +589,6 @@ public class BouncingBall extends Canvas {
         g.drawString("Objectiu: " + target,         hm + hudW / 2,                    textY);
         g.drawString("Nivell: "   + level,           hm + 3 * hudW / 4,               textY);
 
-        // --- Popup (nivel nuevo, bala extra, ganador) ---
         if (show_popup) {
             int popW = (int)(160 * scaleX);
             int popH = (int)( 50 * scaleY);
@@ -660,7 +606,6 @@ public class BouncingBall extends Canvas {
                 popY + (popH + pfm.getAscent() - pfm.getDescent()) / 2);
         }
 
-        // --- Mensaje de inicio (antes del primer clic) ---
         if (startup_screen) {
             String msg = "Clicka per comenar";
             int sfSize = Math.max(14, (int)(22 * Math.min(scaleX, scaleY)));
