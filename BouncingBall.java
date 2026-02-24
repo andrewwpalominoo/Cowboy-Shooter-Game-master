@@ -7,9 +7,6 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.swing.*;
 
-// =====================================================================
-// CLASE Key_actions: Gestiona las acciones del teclado
-// =====================================================================
 class Key_actions implements KeyListener {
 
     public void keyTyped(KeyEvent k) {
@@ -345,7 +342,6 @@ public class BouncingBall extends Canvas {
         JLabel gOverLbl = new JLabel(new ImageIcon(gOverImg.getScaledInstance(150, 150, Image.SCALE_DEFAULT)), SwingConstants.CENTER);
         game_over.getContentPane().setBackground(Color.WHITE);
         game_over.add(gOverLbl);
-		JLabel w_over_img = new JLabel("", SwingConstants.CENTER);
         bottom_buttons1 = new JPanel();
         bottom_buttons1.setBackground(Color.WHITE);
         restart = new JButton("Comenar de nou");
