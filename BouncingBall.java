@@ -28,7 +28,8 @@ class Key_actions implements KeyListener {
     public void keyPressed(KeyEvent kx) {
         if (kx.getKeyCode() == KeyEvent.VK_SPACE) {
             if (!BouncingBall.bullet_fire && !BouncingBall.won) {
-                if (BouncingBall.startup_screen) BouncingBall.startup_screen = false;
+                if (BouncingBall.startup_screen)
+                    BouncingBall.startup_screen = false;
                 BouncingBall.Bullet_count--;
                 if (BouncingBall.Bullet_count < 0) {
                     BouncingBall.Bullet_count = 0;
@@ -46,13 +47,15 @@ class Key_actions implements KeyListener {
         }
     }
 
-    public void keyReleased(KeyEvent key) {}
+    public void keyReleased(KeyEvent key) {
+    }
 }
 
 class Listener extends MouseAdapter {
     public void mouseClicked(MouseEvent e) {
         if (!BouncingBall.bullet_fire && !BouncingBall.won) {
-            if (BouncingBall.startup_screen) BouncingBall.startup_screen = false;
+            if (BouncingBall.startup_screen)
+                BouncingBall.startup_screen = false;
             BouncingBall.Bullet_count--;
             if (BouncingBall.Bullet_count < 0) {
                 BouncingBall.Bullet_count = 0;
@@ -100,7 +103,8 @@ class Button_Handler implements ActionListener {
             jf2.setLayout(null);
             JLabel l1 = new JLabel("Configuracio de so");
             JLabel l2 = new JLabel("Fet  per: CIDE");
-            jf2.add(l1); jf2.add(l2);
+            jf2.add(l1);
+            jf2.add(l2);
             c1 = new JCheckBox("Musica de fons");
             c1.setSelected(selected_BG);
             c1.setBounds(80, 60, 150, 20);
@@ -145,12 +149,14 @@ class Button_Handler implements ActionListener {
             if (BouncingBall.bgmusic) {
                 try {
                     BufferedInputStream af = new BufferedInputStream(
-                        BouncingBall.bBall.getResourceAsStream("/res/theme.wav"));
+                            BouncingBall.bBall.getResourceAsStream("/res/theme.wav"));
                     BouncingBall.clip = AudioSystem.getClip();
                     BouncingBall.clip.open(AudioSystem.getAudioInputStream(af));
                     BouncingBall.clip.start();
                     BouncingBall.clip.loop(Clip.LOOP_CONTINUOUSLY);
-                } catch (Exception ex) { ex.printStackTrace(); }
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
             }
         }
 
@@ -176,26 +182,26 @@ public class BouncingBall extends Canvas {
     private static int a = 0;
     public static boolean up = true;
 
-    public static boolean move_ball   = true;
+    public static boolean move_ball = true;
     // Posicion de la pelota en espacio BASE
-    public static int ballx_base      = 450;
-    public static int bally_base      = 400;
+    public static int ballx_base = 450;
+    public static int bally_base = 400;
     // Posicion de la bala en espacio BASE
-    public static int bulletx_base    = 20;
-    public static int bullety_base    = 278; // altura fija de disparo
+    public static int bulletx_base = 20;
+    public static int bullety_base = 278; // altura fija de disparo
     public static boolean bullet_fire = false;
-    public static boolean bulletf     = true;
+    public static boolean bulletf = true;
 
     // Puntuacion y niveles
-    public static int point        = 0;
+    public static int point = 0;
     public static boolean score_update = true;
-    public static int target       = 20;
-    public static int level        = 1;
-    public static int ball_speed   = 8; // ms por frame (menor = mas rapido)
+    public static int target = 20;
+    public static int level = 1;
+    public static int ball_speed = 8; // ms por frame (menor = mas rapido)
 
     // Posiciones escaladas para dibujo (calculadas en animate)
-    public static int ballx  = 450;
-    public static int bally  = 400;
+    public static int ballx = 450;
+    public static int bally = 400;
     public static int bulletx = 20;
     public static int bullety = 278;
 
@@ -210,34 +216,37 @@ public class BouncingBall extends Canvas {
     public static JButton restart, exit, restart2, exit2;
 
     // Racha y popups
-    public static boolean level_changed   = false;
-    public static int consecutive_hit     = 0;
-    public static Font pop_font           = new Font("Fugaz one", Font.PLAIN, 22);
-    public static String popup_msg        = "default";
-    public static Boolean show_popup      = false;
-    public static Boolean hit             = false;
+    public static boolean level_changed = false;
+    public static int consecutive_hit = 0;
+    public static Font pop_font = new Font("Fugaz one", Font.PLAIN, 22);
+    public static String popup_msg = "default";
+    public static Boolean show_popup = false;
+    public static Boolean hit = false;
 
     // Audio
     public static Clip clip;
-    public static Boolean bgmusic   = true;
+    public static Boolean bgmusic = true;
     public static Boolean gamemusic = true;
 
     // Estado general
     public static Boolean startup_screen = true;
-    public static Boolean won            = false;
+    public static Boolean won = false;
     public static Class bBall;
     public static JFrame framegame;
     public static String c_code = "";
 
     // Metodo auxiliar para reproducir efectos de sonido sin repetir codigo
     public static void playSfx(String resource) {
-        if (!gamemusic) return;
+        if (!gamemusic)
+            return;
         try {
             BufferedInputStream af = new BufferedInputStream(bBall.getResourceAsStream(resource));
             Clip hclip = AudioSystem.getClip();
             hclip.open(AudioSystem.getAudioInputStream(af));
             hclip.start();
-        } catch (Exception ex) { ex.printStackTrace(); }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 
     public static void main(String[] args) {
@@ -245,7 +254,7 @@ public class BouncingBall extends Canvas {
         framegame = new JFrame("El mico disparador");
         framegame.setVisible(false);
 
-        // --- Pantalla de inicio ---
+        // Pantalla de inicio
         JFrame frame = new JFrame("Pantalla d'inici");
         frame.setSize(600, 450);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -266,19 +275,27 @@ public class BouncingBall extends Canvas {
         reglas.setFont(new Font("Arial", Font.BOLD, 20));
         reglas.setBackground(Color.WHITE);
         reglas.addActionListener(l -> JOptionPane.showMessageDialog(frame,
-            "Fes clic o prem ESPAI per disparar una bala.\n" +
-            "Cada cop dona 10 punts i colpejar al centre suma 20 punts.\n" +
-            "Recompensa d'1 bala extra per 2 cops consecutius.\n" +
-            "En arribar a la puntuacio objectiu, el nivell canvia.\n\n"));
+                "Fes clic o prem ESPAI per disparar una bala.\n" +
+                        "Cada cop dona 10 punts i colpejar al centre suma 20 punts.\n" +
+                        "Recompensa d'1 bala extra per 2 cops consecutius.\n" +
+                        "En arribar a la puntuacio objectiu, el nivell canvia.\n\n"));
 
         JButton begin = new JButton("Començar");
         begin.setFont(new Font("Arial", Font.BOLD, 20));
         begin.setBackground(Color.WHITE);
-        begin.addActionListener(ev -> { frame.dispose(); framegame.setVisible(true); });
+        begin.addActionListener(ev -> {
+            frame.dispose();
+            framegame.setVisible(true);
+        });
 
-        gbc.gridx = 0; gbc.gridy = 0; gbc.gridwidth = 2; panel.add(titulo, gbc);
-        gbc.gridy = 1; panel.add(begin, gbc);
-        gbc.gridy = 2; panel.add(reglas, gbc);
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.gridwidth = 2;
+        panel.add(titulo, gbc);
+        gbc.gridy = 1;
+        panel.add(begin, gbc);
+        gbc.gridy = 2;
+        panel.add(reglas, gbc);
         frame.add(panel);
         frame.setVisible(true);
 
@@ -293,7 +310,9 @@ public class BouncingBall extends Canvas {
                 clip.open(AudioSystem.getAudioInputStream(af));
                 clip.start();
                 clip.loop(Clip.LOOP_CONTINUOUSLY);
-            } catch (Exception ex) { ex.printStackTrace(); }
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
         }
 
         // Barra de menu
@@ -307,20 +326,21 @@ public class BouncingBall extends Canvas {
         Button_Handler bh = new Button_Handler();
         settings.addActionListener(bh);
 
-        score            = new JLabel("Punts: 0");
+        score = new JLabel("Punts: 0");
         Bullet_remaining = new JLabel("Bales: 6");
-        Next_target      = new JLabel("Objectiu: 20");
-        Level            = new JLabel("Nivell: 1");
+        Next_target = new JLabel("Objectiu: 20");
+        Level = new JLabel("Nivell: 1");
 
         game_over = new JDialog(framegame, "Has perdut!");
         Image gOverImg = Toolkit.getDefaultToolkit().getImage(bBall.getResource("/res/gameover_img.png"));
-        JLabel gOverLbl = new JLabel(new ImageIcon(gOverImg.getScaledInstance(150, 150, Image.SCALE_DEFAULT)), SwingConstants.CENTER);
+        JLabel gOverLbl = new JLabel(new ImageIcon(gOverImg.getScaledInstance(150, 150, Image.SCALE_DEFAULT)),
+                SwingConstants.CENTER);
         game_over.getContentPane().setBackground(Color.WHITE);
         game_over.add(gOverLbl);
         bottom_buttons1 = new JPanel();
         bottom_buttons1.setBackground(Color.WHITE);
         restart = new JButton("Començar de nou");
-        exit    = new JButton("Sortir");
+        exit = new JButton("Sortir");
         restart.setBackground(Color.WHITE);
         exit.setBackground(Color.WHITE);
         restart.addActionListener(bh);
@@ -333,12 +353,13 @@ public class BouncingBall extends Canvas {
 
         winner = new JDialog(framegame, "Has guanyat!");
         Image wImg = Toolkit.getDefaultToolkit().getImage(bBall.getResource("/res/winner_img.jpg"));
-        JLabel wLbl = new JLabel(new ImageIcon(wImg.getScaledInstance(300, 350, Image.SCALE_DEFAULT)), SwingConstants.CENTER);
+        JLabel wLbl = new JLabel(new ImageIcon(wImg.getScaledInstance(300, 350, Image.SCALE_DEFAULT)),
+                SwingConstants.CENTER);
         winner.getContentPane().setBackground(Color.WHITE);
         winner.add(wLbl);
         bottom_buttons2 = new JPanel();
         restart2 = new JButton("Començar de nou");
-        exit2    = new JButton("Sortir");
+        exit2 = new JButton("Sortir");
         restart2.setBackground(Color.WHITE);
         exit2.setBackground(Color.WHITE);
         restart2.addActionListener(bh);
@@ -349,10 +370,10 @@ public class BouncingBall extends Canvas {
         winner.setSize(300, 450);
         winner.setResizable(false);
 
-        gun_img    = Toolkit.getDefaultToolkit().getImage(bBall.getResource("/res/diddy_gun.png"));
+        gun_img = Toolkit.getDefaultToolkit().getImage(bBall.getResource("/res/diddy_gun.png"));
         bullet_img = Toolkit.getDefaultToolkit().getImage(bBall.getResource("/res/bullet.png"));
-        ball_img   = Toolkit.getDefaultToolkit().getImage(bBall.getResource("/res/ball.png"));
-        img        = Toolkit.getDefaultToolkit().getImage(bBall.getResource("/res/fondo_cide.png"));
+        ball_img = Toolkit.getDefaultToolkit().getImage(bBall.getResource("/res/ball.png"));
+        img = Toolkit.getDefaultToolkit().getImage(bBall.getResource("/res/fondo_cide.png"));
 
         Canvas c = new BouncingBall();
         c.setFocusable(true);
@@ -381,11 +402,13 @@ public class BouncingBall extends Canvas {
                         if (bgmusic) {
                             try {
                                 BufferedInputStream af = new BufferedInputStream(
-                                    bBall.getResourceAsStream("/res/win.wav"));
+                                        bBall.getResourceAsStream("/res/win.wav"));
                                 Clip hclip = AudioSystem.getClip();
                                 hclip.open(AudioSystem.getAudioInputStream(af));
                                 hclip.start();
-                            } catch (Exception ex) { ex.printStackTrace(); }
+                            } catch (Exception ex) {
+                                ex.printStackTrace();
+                            }
                         }
                         won = true;
                         popup_msg = "GUANYADOR!";
@@ -394,10 +417,20 @@ public class BouncingBall extends Canvas {
                     }
 
                     // Oscila x entre 0 y 330 (rango de movimiento vertical)
-                    if (up) { x++; if (x == 330) up = false; }
-                    else    { x--; if (x == 0)   up = true;  }
+                    if (up) {
+                        x++;
+                        if (x == 330)
+                            up = false;
+                    } else {
+                        x--;
+                        if (x == 0)
+                            up = true;
+                    }
                 }
-                try { Thread.sleep(ball_speed); } catch (Exception e) {}
+                try {
+                    Thread.sleep(ball_speed);
+                } catch (Exception e) {
+                }
                 repaint();
             }
         });
@@ -409,8 +442,8 @@ public class BouncingBall extends Canvas {
                 if (point >= target && bullet_fire) {
                     level++;
                     level_changed = true;
-					Random rand = new Random();
-                    int rv  = rand.nextInt(10) + 40;
+                    Random rand = new Random();
+                    int rv = rand.nextInt(10) + 40;
                     int dir = rand.nextInt(2) + 1;
                     if (dir == 1) {
                         ballx_base = (ballx_base + rv > 780) ? ballx_base - rv : ballx_base + rv;
@@ -424,7 +457,7 @@ public class BouncingBall extends Canvas {
                     bulletx_base = a + 230;
 
                     int bPoint = bulletx_base + 38; // punta de la bala
-                    int bOuter = ballx_base;        // borde izquierdo de la pelota
+                    int bOuter = ballx_base; // borde izquierdo de la pelota
 
                     if (bPoint == bOuter || (bPoint < bOuter + 10 && bPoint > bOuter - 10)) {
 
@@ -441,33 +474,42 @@ public class BouncingBall extends Canvas {
                         // Impacto en el CENTRO exacto -> 20 puntos
                         if (bullety_base - 15 == bally_base) {
                             if (score_update) {
-                                score_update = false; point += 20;
-                                if (hit) consecutive_hit++;
-                                if (Bullet_count > 0) move_ball = false;
+                                score_update = false;
+                                point += 20;
+                                if (hit)
+                                    consecutive_hit++;
+                                if (Bullet_count > 0)
+                                    move_ball = false;
                                 hit = true;
                                 ball_img = Toolkit.getDefaultToolkit().getImage(bBall.getResource("/res/explode.png"));
                                 playSfx("/res/hit.wav");
                             }
                             score.setText("Punts: " + point);
 
-                        // Zona central-baja -> 10 puntos
+                            // Zona central-baja -> 10 puntos
                         } else if (bally_base <= bullety_base && bally_base >= bullety_base - 19) {
                             if (score_update) {
-                                score_update = false; point += 15;
-                                if (hit) consecutive_hit++;
-                                if (Bullet_count > 0) move_ball = false;
+                                score_update = false;
+                                point += 15;
+                                if (hit)
+                                    consecutive_hit++;
+                                if (Bullet_count > 0)
+                                    move_ball = false;
                                 hit = true;
                                 ball_img = Toolkit.getDefaultToolkit().getImage(bBall.getResource("/res/explode.png"));
                                 playSfx("/res/hit.wav");
                             }
                             score.setText("Punts: " + point);
 
-                        // Zona superior -> 10 puntos
+                            // Zona superior -> 10 puntos
                         } else if (bally_base <= bullety_base - 21 && bally_base >= bullety_base - 35) {
                             if (score_update) {
-                                score_update = false; point += 15;
-                                if (hit) consecutive_hit++;
-                                if (Bullet_count > 0) move_ball = false;
+                                score_update = false;
+                                point += 15;
+                                if (hit)
+                                    consecutive_hit++;
+                                if (Bullet_count > 0)
+                                    move_ball = false;
                                 hit = true;
                                 ball_img = Toolkit.getDefaultToolkit().getImage(bBall.getResource("/res/explode.png"));
                                 playSfx("/res/hit.wav");
@@ -481,10 +523,10 @@ public class BouncingBall extends Canvas {
 
                 } else {
                     // Bala fuera de rango: reinicia estado
-                    ball_img      = Toolkit.getDefaultToolkit().getImage(bBall.getResource("/res/ball.png"));
-                    score_update  = true;
-                    bullet_fire   = false;
-                    a             = 0;
+                    ball_img = Toolkit.getDefaultToolkit().getImage(bBall.getResource("/res/ball.png"));
+                    score_update = true;
+                    bullet_fire = false;
+                    a = 0;
 
                     // Sin balas y sin alcanzar objetivo: Game Over
                     if (Bullet_count <= 0 && point < target) {
@@ -495,11 +537,13 @@ public class BouncingBall extends Canvas {
                             if (bgmusic) {
                                 try {
                                     BufferedInputStream af = new BufferedInputStream(
-                                        bBall.getResourceAsStream("/res/gameover.wav"));
+                                            bBall.getResourceAsStream("/res/gameover.wav"));
                                     Clip hclip = AudioSystem.getClip();
                                     hclip.open(AudioSystem.getAudioInputStream(af));
                                     hclip.start();
-                                } catch (Exception ex) { ex.printStackTrace(); }
+                                } catch (Exception ex) {
+                                    ex.printStackTrace();
+                                }
                             }
                         }
                     } else {
@@ -509,12 +553,25 @@ public class BouncingBall extends Canvas {
 
                 if (level_changed) {
                     consecutive_hit = 0;
-                    popup_msg  = "Nivell: " + level;
+                    popup_msg = "Nivell: " + level;
                     show_popup = true;
-                    if      (level == 2) { ball_speed -= 1; Bullet_count = 6; target += 30; }
-                    else if (level == 3) { ball_speed -= 1; Bullet_count = 6; target += 30; }
-                    else if (level == 4) { ball_speed -= 2; Bullet_count = 5; target += 30; }
-                    else if (level == 5) { ball_speed  = 3; Bullet_count = 5; target += 30; }
+                    if (level == 2) {
+                        ball_speed -= 1;
+                        Bullet_count = 6;
+                        target += 30;
+                    } else if (level == 3) {
+                        ball_speed -= 1;
+                        Bullet_count = 6;
+                        target += 30;
+                    } else if (level == 4) {
+                        ball_speed -= 2;
+                        Bullet_count = 5;
+                        target += 30;
+                    } else if (level == 5) {
+                        ball_speed = 3;
+                        Bullet_count = 5;
+                        target += 30;
+                    }
                     score.setText("Punts: " + point);
                     Level.setText("Nivell: " + level);
                     Next_target.setText("Objectiu: " + target);
@@ -522,24 +579,31 @@ public class BouncingBall extends Canvas {
                     level_changed = false;
                 }
 
-                try { Thread.sleep(3); } catch (Exception e) {}
+                try {
+                    Thread.sleep(3);
+                } catch (Exception e) {
+                }
                 repaint();
             }
         });
         bullet.start();
     }
 
-    public void update(Graphics g) { paint(g); }
+    public void update(Graphics g) {
+        paint(g);
+    }
 
     public void paint(Graphics g) {
         int w = this.getWidth();
         int h = this.getHeight();
-        if (w <= 0 || h <= 0) return;
+        if (w <= 0 || h <= 0)
+            return;
         bf = new BufferedImage(w, h, BufferedImage.TYPE_INT_RGB);
         try {
             animate(bf.getGraphics(), w, h);
             g.drawImage(bf, 0, 0, null);
-        } catch (Exception e) {}
+        } catch (Exception e) {
+        }
     }
 
     public void animate(Graphics g, int W, int H) {
@@ -551,71 +615,71 @@ public class BouncingBall extends Canvas {
         g.drawImage(img, 0, 0, W, H, this);
 
         g.drawImage(gun_img,
-            (int)(-80  * scaleX), (int)(141 * scaleY),
-            (int)(380  * scaleX), (int)(420 * scaleY), this);
+                (int) (-80 * scaleX), (int) (141 * scaleY),
+                (int) (380 * scaleX), (int) (420 * scaleY), this);
 
-        bally_base = 400 - x;   // oscilacion vertical en base
-        ballx = (int)(ballx_base * scaleX);
-        bally = (int)(bally_base * scaleY);
+        bally_base = 400 - x; // oscilacion vertical en base
+        ballx = (int) (ballx_base * scaleX);
+        bally = (int) (bally_base * scaleY);
         g.drawImage(ball_img, ballx, bally,
-            (int)(50 * scaleX), (int)(50 * scaleY), this);
+                (int) (50 * scaleX), (int) (50 * scaleY), this);
 
         if (bullet_fire) {
             bulletx_base = a + 230;
             bullety_base = 278;
-            bulletx = (int)(bulletx_base * scaleX);
-            bullety = (int)(bullety_base * scaleY);
+            bulletx = (int) (bulletx_base * scaleX);
+            bullety = (int) (bullety_base * scaleY);
             g.drawImage(bullet_img, bulletx, bullety,
-                (int)(30 * scaleX), Math.max(3, (int)(5 * scaleY)), this);
+                    (int) (30 * scaleX), Math.max(3, (int) (5 * scaleY)), this);
         }
 
-        int hm  = (int)(20 * scaleX);           // margen lateral
-        int hudH = (int)(60 * scaleY);           // alto del HUD
-        int hudY = (int)(10 * scaleY);           // separacion superior
-        int hudW = W - hm * 2;                   // ancho total menos margenes
+        int hm = (int) (20 * scaleX); // margen lateral
+        int hudH = (int) (60 * scaleY); // alto del HUD
+        int hudY = (int) (10 * scaleY); // separacion superior
+        int hudW = W - hm * 2; // ancho total menos margenes
         g.setColor(Color.WHITE);
         g.fillRoundRect(hm, hudY, hudW, hudH, 20, 30);
 
         // Textos del HUD distribuidos en 4 columnas equidistantes
-        int fontSize = Math.max(12, (int)(17 * Math.min(scaleX, scaleY)));
+        int fontSize = Math.max(12, (int) (17 * Math.min(scaleX, scaleY)));
         Font hudFont = new Font("Fugaz one", Font.PLAIN, fontSize);
         g.setFont(hudFont);
         g.setColor(Color.BLACK);
         FontMetrics fm = g.getFontMetrics(hudFont);
         int textY = hudY + (hudH + fm.getAscent() - fm.getDescent()) / 2;
 
-        g.drawString("Bales: "    + Bullet_count, hm + (int)(10 * scaleX),          textY);
-        g.drawString("Punts: "    + point,         hm + hudW / 4,                    textY);
-        g.drawString("Objectiu: " + target,         hm + hudW / 2,                    textY);
-        g.drawString("Nivell: "   + level,           hm + 3 * hudW / 4,               textY);
+        g.drawString("Bales: " + Bullet_count, hm + (int) (10 * scaleX), textY);
+        g.drawString("Punts: " + point, hm + hudW / 4, textY);
+        g.drawString("Objectiu: " + target, hm + hudW / 2, textY);
+        g.drawString("Nivell: " + level, hm + 3 * hudW / 4, textY);
 
         if (show_popup) {
-            int popW = (int)(160 * scaleX);
-            int popH = (int)( 50 * scaleY);
+            int popW = (int) (160 * scaleX);
+            int popH = (int) (50 * scaleY);
             int popX = (W - popW) / 2;
-            int popY = (int)(150 * scaleY);
+            int popY = (int) (150 * scaleY);
             g.setColor(Color.WHITE);
             g.fillRoundRect(popX, popY, popW, popH, 20, 30);
-            int pfSize = Math.max(14, (int)(22 * Math.min(scaleX, scaleY)));
+            int pfSize = Math.max(14, (int) (22 * Math.min(scaleX, scaleY)));
             Font pf = new Font("Fugaz one", Font.PLAIN, pfSize);
             g.setFont(pf);
             g.setColor(Color.BLACK);
             FontMetrics pfm = g.getFontMetrics(pf);
             g.drawString(popup_msg,
-                popX + (popW - pfm.stringWidth(popup_msg)) / 2,
-                popY + (popH + pfm.getAscent() - pfm.getDescent()) / 2);
+                    popX + (popW - pfm.stringWidth(popup_msg)) / 2,
+                    popY + (popH + pfm.getAscent() - pfm.getDescent()) / 2);
         }
 
         if (startup_screen) {
             String msg = "Clicka per començar";
-            int sfSize = Math.max(14, (int)(22 * Math.min(scaleX, scaleY)));
+            int sfSize = Math.max(14, (int) (22 * Math.min(scaleX, scaleY)));
             Font sf = new Font("Fugaz one", Font.PLAIN, sfSize);
             g.setFont(sf);
             g.setColor(Color.WHITE);
             FontMetrics sfm = g.getFontMetrics(sf);
             g.drawString(msg,
-                (W - sfm.stringWidth(msg)) / 2,
-                (int)(530 * scaleY));
+                    (W - sfm.stringWidth(msg)) / 2,
+                    (int) (530 * scaleY));
         }
     }
 }
