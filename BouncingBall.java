@@ -105,7 +105,7 @@ class Button_Handler implements ActionListener {
             JLabel l2 = new JLabel("Fet  per: CIDE");
             jf2.add(l1);
             jf2.add(l2);
-            c1 = new JCheckBox("Musica de fons");
+            c1 = new JCheckBox("So de fons");
             c1.setSelected(selected_BG);
             c1.setBounds(80, 60, 150, 20);
             c1.setBackground(Color.WHITE);
@@ -268,11 +268,11 @@ public class BouncingBall extends Canvas {
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
         JLabel titulo = new JLabel("El mico disparador", JLabel.CENTER);
-        titulo.setFont(new Font("Arial", Font.BOLD, 40));
+        titulo.setFont(new Font("Comic Sans MS", Font.BOLD, 40));
         titulo.setForeground(Color.WHITE);
 
         JButton reglas = new JButton("Com jugar");
-        reglas.setFont(new Font("Arial", Font.BOLD, 20));
+        reglas.setFont(new Font("Comic Sans MS", Font.BOLD, 20));
         reglas.setBackground(Color.WHITE);
         reglas.addActionListener(l -> JOptionPane.showMessageDialog(frame,
                 "Fes clic o prem ESPAI per disparar una bala.\n" +
@@ -281,7 +281,7 @@ public class BouncingBall extends Canvas {
                         "En arribar a la puntuacio objectiu, el nivell canvia.\n\n"));
 
         JButton begin = new JButton("Començar");
-        begin.setFont(new Font("Arial", Font.BOLD, 20));
+        begin.setFont(new Font("Comic Sans MS", Font.BOLD, 20));
         begin.setBackground(Color.WHITE);
         begin.addActionListener(ev -> {
             frame.dispose();
